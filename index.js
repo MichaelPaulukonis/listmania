@@ -12,17 +12,21 @@ var getText = function() {
         corpora = new Corpora(),
         strategy,
         chars = 5000,
-        text = util.pick(corpora.texts).text(),
+        textObj = util.pick(corpora.texts),
+        text = textObj.text(),
         startPos = util.randomInRange(0, text.length - chars), // will fail for texts < 5000 chars
         blob = text.slice(0,chars);
 
-    return blob;
+    return { text: blob,
+             source: textObj.name
+           };
 
 };
-var text = getText();
+let text = getText(),
+    list = listifier.getList(text);
 
 // TODO: clean the individual pieces
 
 // textutils.cleaner()
 
-console.log(JSON.stringify(listifier.getList(text)));
+console.log(JSON.stringify(list, null, 2));
