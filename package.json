@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MichaelPaulukonis/listmania#readme",
   "dependencies": {
+    "commander": "2.9.0",
     "compromise": "7.0.5",
     "iconv-lite": "0.4.15",
     "nlp-compromise": "6.7.4",
