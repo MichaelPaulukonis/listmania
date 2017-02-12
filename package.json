@@ -23,7 +23,7 @@
   "dependencies": {
     "commander": "2.9.0",
     "compromise": "7.0.5",
-    "corpora-project": "0.1.2",
+    "corpora-project": "0.2.0",
     "iconv-lite": "0.4.15",
     "nlp-compromise": "6.7.4",
     "random-seed": "0.3.0"
