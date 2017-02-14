@@ -1,7 +1,6 @@
 'use strict';
 
 let listifier = new require('./lib/listify')(),
-    textutils = require(`./lib/textutil.js`),
     util = require('./lib/util.js')(),
     config = {};
 
