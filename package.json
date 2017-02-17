@@ -26,6 +26,10 @@
     "corpora-project": "0.2.0",
     "iconv-lite": "0.4.15",
     "nlp-compromise": "6.7.4",
-    "random-seed": "0.3.0"
-  }
+    "random-seed": "0.3.0",
+    "tumblrwks": "0.3.0"
+  },
+  "engines": {
+    "node": "6.1.0"
+  },
 }
