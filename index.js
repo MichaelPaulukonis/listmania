@@ -1,8 +1,27 @@
 'use strict';
 
 let listifier = new require('./lib/listify')(),
-    util = require('./lib/util.js')(),
-    config = {};
+    util = require('./lib/util.js')({statusVerbosity: 0}),
+    config = require(`./config.js`),
+    Tumblr = require(`tumblrwks`),
+    ALWAYS_PRINT = 0;
+
+let tumblr = new Tumblr(
+  {
+    consumerKey:    config.consumerKey,
+    consumerSecret: config.consumerSecret,
+    accessToken:    config.accessToken,
+    accessSecret:   config.accessSecret
+  },
+  `leanstooneside.tumblr.com`
+);
+
+let logger = function(msg) {
+  util.debug(msg, ALWAYS_PRINT);
+};
+util.log = logger;
+
+
 
 var getText = function() {
 
@@ -22,6 +41,45 @@ var getText = function() {
 
 };
 
+// poem := list
+var prepForPublish = function(poem) {
+  let data,
+      dataline;
+
+  data = JSON.parse(JSON.stringify(poem));
+
+  dataline = `<!-- config: ${JSON.stringify(data.metadata)} -->`;
+
+  return `<ol>` + data.list.map(l => `<li>${l}</li>`).join(``) + `<\ol>${dataline}`;
+};
+
+let teller = function() {
+
+
+  let text = getText(config.corporaFilter),
+      list = listifier.getList(text);
+
+  if (list && list.list) {
+
+    list.printable = prepForPublish(list);
+
+    if (config.postLive) {
+      // TODO: optionally dump in other info for "hidden" display?
+      tumblr.post(`/post`,
+                  {type: `text`, title: list.metadata.title, body: list.printable},
+                  function(err, json) { // eslint-disable-line no-unused-vars
+                    if (err) {
+                      logger(JSON.stringify(err));
+                      logger(err);
+                    }
+                  });
+    } else {
+      logger(JSON.stringify(list, null, 2));
+    }
+  }
+
+};
+
 
 let program = require(`commander`);
 program
@@ -35,8 +93,4 @@ if (program.corporaFilter) {
   config.corporaFilter = program.corporaFilter;
 }
 
-
-let text = getText(config.corporaFilter),
-    list = listifier.getList(text);
-
-console.log(JSON.stringify(list, null, 2));
+teller();
