@@ -50,7 +50,7 @@ var prepForPublish = function(poem) {
 
   dataline = `<!-- config: ${JSON.stringify(data.metadata)} -->`;
 
-  return `<ol>` + data.list.map(l => `<li>${l}</li>`).join(``) + `<\ol>${dataline}`;
+  return `<ol>` + data.list.map(l => `<li>${l}</li>`).join(``) + `</ol>${dataline}`;
 };
 
 let teller = function() {
