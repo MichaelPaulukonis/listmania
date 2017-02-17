@@ -59,7 +59,7 @@ let teller = function() {
   let text = getText(config.corporaFilter),
       list = listifier.getList(text);
 
-  if (list && list.list) {
+  if (list && list.list && list.list.length > 0) {
 
     list.printable = prepForPublish(list);
 
