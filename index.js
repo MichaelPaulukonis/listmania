@@ -57,7 +57,7 @@ let teller = function() {
 
 
   let text = getText(config.corporaFilter),
-      list = listifier.getList(text);
+      list = listifier.getList(text, config.matchPattern);
 
   if (list && list.list && list.list.length > 0) {
 
@@ -85,12 +85,16 @@ let program = require(`commander`);
 program
   .version(`0.0.3`)
   .option(`-c, --corporaFilter [string]`, `filename substring filter (non-case sensitive)`)
-// TODO: provide a match-filter on the command-line?
+  .option(`-m, --matchPattern [string]`, `nlp-compromist matchPattern for list elements`)
   .parse(process.argv);
 
 
 if (program.corporaFilter) {
   config.corporaFilter = program.corporaFilter;
+}
+
+if (program.matchPattern) {
+  config.matchPattern = program.matchPattern;
 }
 
 teller();
