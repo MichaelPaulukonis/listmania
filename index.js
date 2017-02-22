@@ -55,11 +55,19 @@ var prepForPublish = function(poem) {
 
 let teller = function() {
 
-
   let text = getText(config.corporaFilter),
-      list = listifier.getList(text, config.matchPattern);
+      list = {},
+      attempt = 0;
 
-  if (list && list.list && list.list.length > 0) {
+  while (attempt < 5) {
+    attempt++;
+    list = listifier.getList(text, config.matchPattern);
+    if (list.list && list.list.length > 0) {
+      break;
+    }
+  }
+
+  if (list.list && list.list.length > 0) {
 
     list.printable = prepForPublish(list);
 
@@ -76,6 +84,8 @@ let teller = function() {
     } else {
       logger(JSON.stringify(list, null, 2));
     }
+  } else {
+    console.log(`NO LIST FOR TEXT '${text.source}'`);
   }
 
 };
