@@ -25,7 +25,7 @@ util.log = logger;
 
 var getText = function() {
 
-  let Corpora = require(`./lib/corpora.js`),
+  let Corpora = require(`common-corpus`),
       corpora = new Corpora(),
       source = config.corporaFilter ? corpora.filter(config.corporaFilter) : corpora.texts,
       chars = 50000,
