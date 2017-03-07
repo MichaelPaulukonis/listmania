@@ -31,8 +31,10 @@ var getText = function() {
       chars = 50000,
       textObj = util.pick(source),
       text = textObj.text(),
-      startPos = util.randomInRange(0, text.length - chars),
-      blob = text.slice(0,chars);
+      startPos = util.randomInRange(0, (text.length > chars ? text.length - chars : text.length)),
+      blob = text.slice(startPos,startPos+chars);
+
+  // console.log(`text.length: ${text.length} startPos: ${startPos} blob-borders: ${startPos+chars}`);
 
   return {
     text: blob,
