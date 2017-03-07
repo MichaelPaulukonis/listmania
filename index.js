@@ -1,7 +1,7 @@
 'use strict';
 
-let listifier = new require('./lib/listify')(),
-    util = require('./lib/util.js')({statusVerbosity: 0}),
+let listifier = new require(`./lib/listify`)(),
+    util = require(`./lib/util.js`)({statusVerbosity: 0}),
     config = require(`./config.js`),
     Tumblr = require(`tumblrwks`),
     ALWAYS_PRINT = 0;
