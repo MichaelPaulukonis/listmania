@@ -9,21 +9,20 @@
       newlistifier = new Listifier();
 
 // for functional tests
-let getText = function() {
+  let getText = function() {
 
-  let Corpora = require(`common-corpus`),
-      corpora = new Corpora(),
-      source = corpora.texts,
-      chars = 50000,
-      textObj = source[2], // eh.....
-      blob = textObj.text();
+    let Corpora = require(`common-corpus`),
+        corpora = new Corpora(),
+        source = corpora.texts,
+        textObj = source[2], // eh.....
+        blob = textObj.text();
 
-  return {
-    text: blob,
-    source: textObj.name
+    return {
+      text: blob,
+      source: textObj.name
+    };
+
   };
-
-};
 
   describe(`listifier`, function() {
 
@@ -47,19 +46,16 @@ let getText = function() {
 
     describe(`functional tests`, function() {
       let list = newlistifier.getList({text: getText()});
-      it('should return an object', function() {
-        let list = newlistifier.getList({text: getText()});
-        expect(list).to.be.an('object');
+      it(`should return an object`, function() {
+        expect(list).to.be.an(`object`);
       });
-      it('object should have a list array', function() {
-        let list = newlistifier.getList({text: getText()});
-        expect(list.list).to.be.an('array');
+      it(`object should have a list array`, function() {
+        expect(list.list).to.be.an(`array`);
         expect(list.list).to.have.length.above(0);
         expect(list.list[0]).to.be.a(`string`);
       });
-      it('object should have metadata', function() {
-        let list = newlistifier.getList({text: getText()});
-        expect(list.metadata).to.be.an('object');
+      it(`object should have metadata`, function() {
+        expect(list.metadata).to.be.an(`object`);
       });
     });
 
