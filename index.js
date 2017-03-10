@@ -108,8 +108,8 @@ if (program.corporaFilter) {
   config.corporaFilter = program.corporaFilter;
 }
 
-if (program.matchPattern) {
-  config.matchPattern = program.matchPattern;
+if (program.patternMatch) {
+  config.matchPattern = program.patternMatch;
 }
 
 if (program.method) {
