@@ -31,8 +31,8 @@ var getText = function() {
       chars = 50000,
       textObj = util.pick(source),
       text = textObj.text(),
-      startPos = util.randomInRange(0, (text.length > chars ? text.length - chars : text.length)),
-      blob = text.slice(startPos,startPos+chars);
+      startPos = util.randomInRange(0, text.length - chars),
+      blob = (text.length <= chars ? text :  text.slice(startPos,startPos+chars));
 
   // console.log(`text.length: ${text.length} startPos: ${startPos} blob-borders: ${startPos+chars}`);
 
@@ -63,7 +63,9 @@ let teller = function() {
 
   while (attempt < 5) {
     attempt++;
-    list = listifier.getList(text, config.matchPattern);
+    list = listifier.getList({text: text,
+                              matchPattern: config.matchPattern,
+                              method: config.method});
     if (list.list && list.list.length > 0) {
       break;
     }
@@ -97,7 +99,8 @@ let program = require(`commander`);
 program
   .version(`0.0.3`)
   .option(`-c, --corporaFilter [string]`, `filename substring filter (non-case sensitive)`)
-  .option(`-m, --matchPattern [string]`, `nlp-compromist matchPattern for list elements`)
+  .option(`-p, --patternMatch [string]`, `nlp-compromise matchPattern for list elements`)
+  .option(`-m, --method [string]`, `method-type (See index.js)`)
   .parse(process.argv);
 
 
@@ -107,6 +110,10 @@ if (program.corporaFilter) {
 
 if (program.matchPattern) {
   config.matchPattern = program.matchPattern;
+}
+
+if (program.method) {
+  config.method = program.method;
 }
 
 teller();
