@@ -8,7 +8,7 @@
       Listifier = require(`../lib/listify`),
       newlistifier = new Listifier();
 
-// for functional tests
+  // for functional tests
   let getText = function() {
 
     let Corpora = require(`common-corpus`),
@@ -38,7 +38,6 @@
         expect(listifier).to.be.an.instanceof(Listifier);
       });
 
-
       it(`should expose a getList method`, function() {
         expect(newlistifier.getList).to.be.a(`function`);
       });
@@ -49,10 +48,22 @@
       it(`should return an object`, function() {
         expect(list).to.be.an(`object`);
       });
-      it(`object should have a list array`, function() {
-        expect(list.list).to.be.an(`array`);
-        expect(list.list).to.have.length.above(0);
-        expect(list.list[0]).to.be.a(`string`);
+      describe(`object should have a list`, function() {
+        it(`that is an array`, function() {
+          expect(list.list).to.be.an(`array`);
+        });
+        // NOTE: as it currently stands, the lib will sometimes return an empty list
+        // if the match is not found, for example
+        // so... need some better way of testing/noting this
+        // since it's a valid return case
+        it(`having zero or non-zero length`, function() {
+          expect(list.list).to.have.length.above(-1);
+        });
+        it(`and contain strings (or nothing`, function() {
+          // if list.list has elements, they are all strings
+          // OR it does not have elements
+          expect(list.list.filter(e => typeof e === `string`)).to.have.length(list.list.length);
+        });
       });
       it(`object should have metadata`, function() {
         expect(list.metadata).to.be.an(`object`);
