@@ -4,8 +4,14 @@
   "description": "maker of lists",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/",
-    "start": "node index.js"
+    "start": "node index.js",
+    "logs": "heroku logs -n 1500 > heroku.log",
+    "clean:cover": "rimraf ./docs/coverage",
+    "cover": "run-s clean:cover cover:js",
+    "cover:js": "nyc mocha --recursive ./test/*.tests.js",
+    "test": "standard --fix && npm run test:js",
+    "test:js": "mocha --timeout 50000 ./test/*.tests.js",
+    "update": "npx npm-check -u"
   },
   "repository": {
     "type": "git",
@@ -37,15 +43,26 @@
     "tumblrwks": "0.3.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "gulp": "3.9.1",
-    "gulp-eslint": "2.0.0",
-    "gulp-mocha": "2.2.0",
-    "gulp-if": "2.0.1",
-    "istanbul": "^0.4.3",
-    "mocha": "^2.4.5"
+    "chai": "^4.2.0",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^6.1.4",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^14.0.0",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^2.6.3",
+    "simple-timer": "0.0.5",
+    "standard": "^12.0.1"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after"
+    ]
   },
   "engines": {
-    "node": "6.1.0"
+    "node": "8.9.4"
   }
 }
