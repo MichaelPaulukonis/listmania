@@ -21,19 +21,12 @@ util.log = logger
 
 var getText = function () {
   let Corpora = require(`common-corpus`)
-
   let corpora = new Corpora()
-
   let source = config.corporaFilter ? corpora.filter(config.corporaFilter) : corpora.texts
-
   let chars = 50000
-
   let textObj = util.pick(source)
-
   let text = textObj.text()
-
   let startPos = util.randomInRange(0, text.length - chars)
-
   let blob = (text.length <= chars ? text : text.slice(startPos, startPos + chars))
 
   // console.log(`text.length: ${text.length} startPos: ${startPos} blob-borders: ${startPos+chars}`);
@@ -46,21 +39,14 @@ var getText = function () {
 
 // poem := list
 var prepForPublish = function (poem) {
-  let data,
-    dataline
-
-  data = JSON.parse(JSON.stringify(poem))
-
-  dataline = `<!-- config: ${JSON.stringify(data.metadata)} -->`
-
+  const data = JSON.parse(JSON.stringify(poem))
+  const dataline = `<!-- config: ${JSON.stringify(data.metadata)} -->`
   return `<ol>` + data.list.map(l => `<li>${l}</li>`).join(``) + `</ol>${dataline}`
 }
 
 let teller = function () {
   let text = getText(config.corporaFilter)
-
   let list = {}
-
   let attempt = 0
 
   while (attempt < 5) {

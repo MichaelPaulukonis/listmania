@@ -33,11 +33,11 @@
   },
   "homepage": "https://github.com/MichaelPaulukonis/listmania#readme",
   "dependencies": {
-    "commander": "2.9.0",
+    "commander": "^2.20.0",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
-    "compromise": "7.0.5",
-    "corpora-project": "0.2.0",
-    "dotenv": "4.0.0",
+    "compromise": "^11.13.2",
+    "corpora-project": "^0.2.0",
+    "dotenv": "^7.0.0",
     "fuzzy-matching": "0.4.3",
     "random-seed": "0.3.0",
     "tumblrwks": "0.3.0"
