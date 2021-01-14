@@ -3,6 +3,7 @@ let util = require(`./lib/util.js`)({ statusVerbosity: 0 })
 let config = require(`./config.js`)
 let Tumblr = require(`tumblrwks`)
 let ALWAYS_PRINT = 0
+const { prepForPublish, prefixifiers } = require('./lib/prep')
 
 let tumblr = new Tumblr(
   {
@@ -37,13 +38,6 @@ var getText = function () {
   }
 }
 
-// poem := list
-var prepForPublish = function (poem) {
-  const data = JSON.parse(JSON.stringify(poem))
-  const dataline = `<!-- config: ${JSON.stringify(data.metadata)} -->`
-  return `<ol>` + data.list.map(l => `<li>${l}</li>`).join(``) + `</ol>${dataline}`
-}
-
 let teller = function () {
   let text = getText(config.corporaFilter)
   let list = {}
@@ -60,13 +54,14 @@ let teller = function () {
   }
 
   if (list.list && list.list.length > 0) {
-    list.printable = prepForPublish(list)
+    const pfx = util.pick(Object.keys(prefixifiers))
+    list.printable = prepForPublish(list, prefixifiers[pfx])
 
+    // TODO: uh.... separate out posting from the listifier
     if (config.postLive) {
-      // TODO: optionally dump in other info for "hidden" display?
       tumblr.post(`/post`,
         { type: `text`, title: list.metadata.title, body: list.printable },
-        function (err, json) { // eslint-disable-line no-unused-vars
+        function (err, _) {
           if (err) {
             logger(JSON.stringify(err))
             logger(err)
