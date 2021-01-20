@@ -35,11 +35,11 @@
   },
   "homepage": "https://github.com/MichaelPaulukonis/listmania#readme",
   "dependencies": {
-    "commander": "^2.20.0",
+    "commander": "^7.0.0",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
-    "compromise": "^11.13.2",
+    "compromise": "^13.8.0",
     "corpora-project": "^0.2.0",
-    "dotenv": "^7.0.0",
+    "dotenv": "^8.2.0",
     "fuzzy-matching": "0.4.3",
     "random-seed": "0.3.0",
     "tumblrwks": "0.3.0"
@@ -47,13 +47,13 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "dirty-chai": "^2.0.1",
-    "mocha": "^6.1.4",
+    "mocha": "^8.2.1",
     "npm-run-all": "^4.1.5",
-    "nyc": "^14.0.0",
+    "nyc": "^15.1.0",
     "pre-commit": "^1.2.2",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.2",
     "simple-timer": "0.0.5",
-    "standard": "^12.0.1"
+    "standard": "^16.0.3"
   },
   "standard": {
     "globals": [

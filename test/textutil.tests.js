@@ -1,52 +1,52 @@
-var chai = require(`chai`)
-var dirtyChai = require('dirty-chai')
+const chai = require('chai')
+const dirtyChai = require('dirty-chai')
 chai.use(dirtyChai)
-var expect = chai.expect
-var textutils = require(`../lib/textutil.js`)
+const expect = chai.expect
+const textutils = require('../lib/textutil.js')
 
-describe(`textutil`, function () {
-  describe(`API`, function () {
-    it(`Util should expose a wordfreqs method`, function () {
-      expect(textutils.wordfreqs).to.be.a(`function`)
+describe('textutil', function () {
+  describe('API', function () {
+    it('Util should expose a wordfreqs method', function () {
+      expect(textutils.wordfreqs).to.be.a('function')
     })
 
-    it(`Util should expose a wordbag method`, function () {
-      expect(textutils.wordbag).to.be.a(`function`)
+    it('Util should expose a wordbag method', function () {
+      expect(textutils.wordbag).to.be.a('function')
     })
 
-    it(`should expose a cleaner method`, function () {
-      expect(textutils.cleaner).to.be.a(`function`)
+    it('should expose a cleaner method', function () {
+      expect(textutils.cleaner).to.be.a('function')
     })
 
-    it(`should expose a splitwords method`, function () {
-      expect(textutils.splitwords).to.be.a(`function`)
+    it('should expose a splitwords method', function () {
+      expect(textutils.splitwords).to.be.a('function')
     })
   })
 
-  describe(`splitwords`, function () {
-    let splits = textutils.splitwords(`Hey we're the monkeys. Aren't we?`)
-    it(`should return an array (of 6 words)`, function () {
+  describe('splitwords', function () {
+    const splits = textutils.splitwords('Hey we\'re the monkeys. Aren\'t we?')
+    it('should return an array (of 6 words)', function () {
       expect(splits).to.be.instanceOf(Array)
       expect(splits.length).to.equal(6)
     })
-    it(`should not split contractions (we're, aren't)`, function () {
-      expect(splits[1]).to.equal(`we're`)
-      expect(splits[4]).to.equal(`Aren't`)
+    it('should not split contractions (we\'re, aren\'t)', function () {
+      expect(splits[1]).to.equal('we\'re')
+      expect(splits[4]).to.equal('Aren\'t')
     })
   })
 
-  describe(`wordbag`, function () {
-    let bag = textutils.wordbag(`Hey we're the monkeys. Aren't we?`)
+  describe('wordbag', function () {
+    const bag = textutils.wordbag('Hey we\'re the monkeys. Aren\'t we?')
 
-    let keys = Object.keys(bag)
+    const keys = Object.keys(bag)
 
-    it(`should return an object`, function () {
-      expect(bag).to.be.an(`object`)
+    it('should return an object', function () {
+      expect(bag).to.be.an('object')
     })
 
-    it(`should ignore common stop words(we're, the, aren't, we)`, function () {
-      let commonStops = [`we're`, `the`, `aren't`, `we`]
-      expect(commonStops.filter(sw => keys.indexOf(`_` + sw) > -1).length).to.equal(0)
+    it('should ignore common stop words(we\'re, the, aren\'t, we)', function () {
+      const commonStops = ['we\'re', 'the', 'aren\'t', 'we']
+      expect(commonStops.filter(sw => keys.indexOf('_' + sw) > -1).length).to.equal(0)
     })
 
     // this fails for 2 reasons
@@ -61,44 +61,44 @@ describe(`textutil`, function () {
     // });
   })
 
-  describe(`wordfreqs`, function () {
-    var wf = textutils.wordfreqs(`this is some text`)
-    it(`should return an array`, function () {
+  describe('wordfreqs', function () {
+    const wf = textutils.wordfreqs('this is some text')
+    it('should return an array', function () {
       expect(wf).to.be.instanceOf(Array)
     })
-    it(`each element should be an object`, function () {
-      expect(wf[0]).to.be.an(`object`)
+    it('each element should be an object', function () {
+      expect(wf[0]).to.be.an('object')
     })
-    it(`the element should have a word property, that is a string`, function () {
-      expect(wf[0].word).to.be.a(`string`)
+    it('the element should have a word property, that is a string', function () {
+      expect(wf[0].word).to.be.a('string')
     })
-    it(`shouls have a count property that is a number`, function () {
-      expect(wf[0].count).to.be.an(`number`)
+    it('shouls have a count property that is a number', function () {
+      expect(wf[0].count).to.be.an('number')
     })
   })
 
-  describe(`cleaner`, function () {
-    var unbalancedParens = `some text(that needs[cleaning]`
+  describe('cleaner', function () {
+    const unbalancedParens = 'some text(that needs[cleaning]'
 
-    var unbalancedBrackets = `some text(that needs[cleaning)`
+    const unbalancedBrackets = 'some text(that needs[cleaning)'
 
-    var cleanParens = textutils.cleaner(unbalancedParens)
+    const cleanParens = textutils.cleaner(unbalancedParens)
 
-    var cleanBrackets = textutils.cleaner(unbalancedBrackets)
-    it(`should return a string`, function () {
-      expect(cleanParens).to.be.a(`string`)
-      expect(cleanBrackets).to.be.a(`string`)
+    const cleanBrackets = textutils.cleaner(unbalancedBrackets)
+    it('should return a string', function () {
+      expect(cleanParens).to.be.a('string')
+      expect(cleanBrackets).to.be.a('string')
     })
-    it(`should remove unbalancedParens`, function () {
+    it('should remove unbalancedParens', function () {
       expect(cleanParens.match(/\(|\)/g)).to.be.null()
     })
-    it(`should remove unbalancedBrackets`, function () {
+    it('should remove unbalancedBrackets', function () {
       expect(cleanBrackets.match(/\[|\]/g)).to.be.null()
     })
-    it(`should not remove balanced parens`, function () {
+    it('should not remove balanced parens', function () {
       expect(cleanBrackets.match(/\(|\)/g)).to.not.be.null()
     })
-    it(`should not remove balanced brackets`, function () {
+    it('should not remove balanced brackets', function () {
       expect(cleanParens.match(/\[|\]/g)).to.not.be.null()
     })
   })

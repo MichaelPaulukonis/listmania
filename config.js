@@ -1,4 +1,4 @@
-require(`dotenv`).config() // read .env file IF IT EXISTS - which only s/b DEV
+require('dotenv').config() // read .env file IF IT EXISTS - which only s/b DEV
 
 const config = {
   consumerKey: process.env.consumer_key,
@@ -6,7 +6,7 @@ const config = {
   accessToken: process.env.token,
   accessSecret: process.env.token_secret,
 
-  postLive: ((process.env.post_live || '').toLowerCase() === `true`)
+  postLive: ((process.env.post_live || '').toLowerCase() === 'true')
 }
 
 module.exports = config
