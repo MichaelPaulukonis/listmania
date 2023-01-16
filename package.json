@@ -42,7 +42,7 @@
     "dotenv": "^8.2.0",
     "fuzzy-matching": "0.4.3",
     "random-seed": "0.3.0",
-    "tumblrwks": "0.3.0"
+    "tumblr.js": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.3.7",

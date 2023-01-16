@@ -1,19 +1,17 @@
 const listifier = new (require('./lib/listify'))()
 const util = require('./lib/util.js')({ statusVerbosity: 0 })
 const config = require('./config.js')
-const Tumblr = require('tumblrwks')
+const tumblr = require('tumblr.js');
+
 const ALWAYS_PRINT = 0
 const { prepForPublish, prefixifiers } = require('./lib/prep')
 
-const tumblr = new Tumblr(
-  {
-    consumerKey: config.consumerKey,
-    consumerSecret: config.consumerSecret,
-    accessToken: config.accessToken,
-    accessSecret: config.accessSecret
-  },
-  'leanstooneside.tumblr.com'
-)
+const client = tumblr.createClient({
+  consumer_key: config.consumerKey,
+  consumer_secret: config.consumerSecret,
+  token: config.accessToken,
+  token_secret: config.accessSecret
+});
 
 const logger = function (msg) {
   util.debug(msg, ALWAYS_PRINT)
@@ -61,14 +59,14 @@ const teller = function () {
 
     // TODO: uh.... separate out posting from the listifier
     if (config.postLive) {
-      tumblr.post('/post',
-        { type: 'text', title: list.metadata.title, body: list.printable },
-        function (err, _) {
-          if (err) {
-            logger(JSON.stringify(err))
-            logger(err)
-          }
-        })
+      client.createTextPost('leanstooneside',
+      { title: list.metadata.title, body: list.printable },
+      (err, _) => {
+        if (err) {
+          logger(JSON.stringify(err))
+          logger(err)
+        }
+      })
     } else {
       logger(JSON.stringify(list, null, 2))
     }
