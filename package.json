@@ -61,5 +61,8 @@
       "beforeEach",
       "after"
     ]
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
