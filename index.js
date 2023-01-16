@@ -46,7 +46,7 @@ const teller = function () {
   while (attempt < 5) {
     attempt++
     list = listifier.getList({
-      text: text,
+      text,
       matchPattern: config.matchPattern,
       method: config.method
     })

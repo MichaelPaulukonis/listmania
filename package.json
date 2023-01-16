@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "logs": "heroku logs -n 1500 > heroku.log",
-    "clean:cover": "rimraf ./docs/coverage",
-    "cover": "run-s clean:cover cover:js",
+    "cover": "npm run clean:cover && npm run cover:js",
+    "clean:cover": "rm -rf ./docs/coverage",
     "cover:js": "nyc mocha --recursive ./test/*.tests.js",
     "test": "standard --fix && npm run test:js",
     "test:js": "mocha --timeout 50000 ./test/*.tests.js",
@@ -45,15 +45,13 @@
     "tumblrwks": "0.3.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.7",
     "dirty-chai": "^2.0.1",
     "mocha": "^8.2.1",
-    "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "pre-commit": "^1.2.2",
-    "rimraf": "^3.0.2",
     "simple-timer": "0.0.5",
-    "standard": "^16.0.3"
+    "standard": "^17.0.0"
   },
   "standard": {
     "globals": [
@@ -63,8 +61,5 @@
       "beforeEach",
       "after"
     ]
-  },
-  "engines": {
-    "node": "8.9.4"
   }
 }
